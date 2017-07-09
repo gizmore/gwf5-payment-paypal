@@ -26,7 +26,8 @@ final class Paypal_Util
 		curl_setopt($ch, CURLOPT_POST, 1);
 	    //if USE_PROXY constant set to TRUE in Constants.php, then only proxy will be enabled.
 	   //Set proxy name to PROXY_HOST and port number to PROXY_PORT in constants.php 
-		if(PAYPAL_USE_PROXY) {
+		if(PAYPAL_USE_PROXY)
+		{
 			curl_setopt ($ch, CURLOPT_PROXY, PAYPAL_PROXY_HOST.":".PAYPAL_PROXY_PORT); 
 		}
 	
@@ -45,11 +46,14 @@ final class Paypal_Util
 		$nvpResArray = self::deformatNVP($response);
 		$nvpReqArray = self::deformatNVP($nvpreq);
 
-		if (curl_errno($ch)) {
+		if (curl_errno($ch))
+		{
 //			echo curl_error($ch);
 			return false;
-		} else {
-			//closing the curl
+		}
+		else
+		{
+			# closing the curl
 			curl_close($ch);
 		}
 		return $nvpResArray;
@@ -61,13 +65,13 @@ final class Paypal_Util
 	  * @nvpArray is Associative Array.
 	  */
 	
-	public static function deformatNVP($nvpstr) {
-	
+	public static function deformatNVP($nvpstr)
+	{
 		$intial=0;
 	 	$nvpArray = array();
 	
-		while(strlen($nvpstr)) {
-			
+		while(strlen($nvpstr))
+		{
 			//postion of Key
 			$keypos= strpos($nvpstr,'=');
 			//position of value
@@ -79,11 +83,9 @@ final class Paypal_Util
 			//decoding the respose
 			$nvpArray[urldecode($keyval)] = urldecode( $valval);
 			$nvpstr = substr($nvpstr,$valuepos+1,strlen($nvpstr));
-			
 	     }
 	     
 		return $nvpArray;
-		
 	}
 	
 	public static function paypalError($resArray)
@@ -96,11 +98,10 @@ final class Paypal_Util
 			$shortMessage = $resArray["L_SHORTMESSAGE".$count];
 			$longMessage  = $resArray["L_LONGMESSAGE".$count]; 
 			$count++;
-			
 			$back .= "$errorCode: $shortMessage<br>".
 				" - $longMessage<br><br>";
 		}
-		return GWF_HTML::error('PayPal', $back, true);
+		return new GWF_Error('err_paypal', [$back]);
 	}
 	
 	public static function checkPaypalErrorCode($code)
@@ -108,7 +109,8 @@ final class Paypal_Util
 		$count=0;
 		while (isset($resArray["L_SHORTMESSAGE".$count]))
 		{
-			if ($resArray["L_ERRORCODE".$count] == $code) {
+			if ($resArray["L_ERRORCODE".$count] == $code)
+			{
 				return true;
 			}
 		}
@@ -125,5 +127,3 @@ final class Paypal_Util
 		GWF_Log::log('paypal', $msg);
 	}
 }
-
-?>

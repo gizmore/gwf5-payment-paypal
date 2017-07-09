@@ -1,6 +1,7 @@
 <?php
 final class Module_PaymentPaypal extends GWF_PaymentModule
 {
+	public function onLoadLanguage() { $this->loadLanguage('lang/paypal'); }
 	public function getConfig()
 	{
 		return array_merge(parent::getConfig(), array(
@@ -36,5 +37,6 @@ final class Module_PaymentPaypal extends GWF_PaymentModule
 		define('PAYPAL_USE_PROXY', $this->cfgProxy());
 		define('PAYPAL_PROXY_HOST', $this->cfgProxyHost());
 		define('PAYPAL_PROXY_PORT', $this->cfgProxyPort());
+		$this->includeClass('Paypal_Util');
 	}
 }

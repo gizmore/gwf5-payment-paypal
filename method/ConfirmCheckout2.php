@@ -1,5 +1,5 @@
 <?php
-final class PaymentPaypal_ConfirmCheckout2 extends GWF_Method
+final class PaymentPaypal_ConfirmCheckout2 extends GWF_MethodPayment
 {
 	public function execute()
 	{
@@ -58,17 +58,16 @@ final class PaymentPaypal_ConfirmCheckout2 extends GWF_Method
 		$module2 = $order->getOrderModule();
 		$module2->onLoadLanguage();
 		
-		
 		Paypal_Util::logResArray($resArray);
 		
-		
 		$status = strtoupper($resArray['PAYMENTSTATUS']);
-		if ($status === 'COMPLETED') {
+		if ($status === 'COMPLETED')
+		{
 			return $mp->onExecuteOrder($module2, $order);
 		}
-		else {
+		else
+		{
 			return $mp->onPendingOrder($module2, $order);
 		}
 	}
 }
-?>
