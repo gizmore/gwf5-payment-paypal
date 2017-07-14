@@ -35,11 +35,16 @@ final class PaymentPaypal_ConfirmCheckout extends GWF_MethodPayment
 		if($ack === "SUCCESS")
 		{
 			$order->saveVar('order_xtoken', serialize($resArray));
-			$this->renderOrder($order);
+			$this->renderOrder($order)->add($this->templateButton());
 		}
 		else
 		{
 			return Paypal_Util::paypalError($resArray);
 		}
+	}
+	
+	private function templateButton(GWF_Order $order)
+	{
+		return $this->templatePHP('paybutton.php', ['order' => $order]);
 	}
 }
