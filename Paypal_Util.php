@@ -9,11 +9,7 @@ final class Paypal_Util
 {
 	public static function hash_call($methodName, $nvpStr)
 	{
-		//declaring of global variables
-		#global $API_Endpoint,$version,$API_UserName,$API_Password,$API_Signature,$nvp_Header;
-	
 		//setting the curl parameters.
-//		var_dump(PAYPAL_API_ENDPOINT);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, PAYPAL_API_ENDPOINT);
 		curl_setopt($ch, CURLOPT_VERBOSE, 1);
@@ -33,8 +29,6 @@ final class Paypal_Util
 	
 		//NVPRequest for submitting to server
 		$nvpreq = "METHOD=".urlencode($methodName)."&VERSION=".urlencode(PAYPAL_VERSION)."&PWD=".urlencode(PAYPAL_API_PASSWORD)."&USER=".urlencode(PAYPAL_API_USERNAME)."&SIGNATURE=".urlencode(PAYPAL_API_SIGNATURE).$nvpStr;
-		
-//		var_dump($nvpreq);
 	
 		//setting the nvpreq as POST FIELD to curl
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$nvpreq);

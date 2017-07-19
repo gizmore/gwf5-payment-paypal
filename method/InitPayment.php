@@ -48,7 +48,6 @@ final class PaymentPaypal_InitPayment extends GWF_MethodPayment
 				"&CURRENCYCODE=$currencyCodeType".
 				"&no_shipping=$no_shipping".
 				"&LOCALECODE=".strtoupper(GWF_Trans::$ISO);
-//		var_dump($nvpstr);
 		
 		/* Make the call to PayPal to set the Express Checkout token
 		 If the API call succeded, then redirect the buyer to PayPal
@@ -56,7 +55,6 @@ final class PaymentPaypal_InitPayment extends GWF_MethodPayment
 		 resulting errors
 		 */
 		$resArray = Paypal_Util::hash_call('SetExpressCheckout', $nvpstr);
-//		var_dump($resArray);
 		
 		$ack = strtoupper($resArray["ACK"]);
 		if($ack=="SUCCESS")
