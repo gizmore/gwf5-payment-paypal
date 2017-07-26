@@ -7,9 +7,9 @@ final class Module_PaymentPaypal extends GWF_PaymentModule
 		return array_merge(parent::getConfig(), array(
 			GDO_Divider::make('paypal_api_settings'),
 			GDO_Checkbox::make('paypal_api_sandbox')->initial('1'),
-			GDO_String::make('paypal_api_username')->ascii()->caseS()->initial('CBusch1980_api1.gmx.de'),
-			GDO_String::make('paypal_api_password')->ascii()->caseS()->initial('ECL83PUVR4CF2LU3'),
-			GDO_String::make('paypal_api_signature')->ascii()->caseS()->initial('An5ns1Kso7MWUdW4ErQKJJJ4qi4-AKKoQTrZVr51cIn6b.aMsI-4t2xg'),
+			GDO_Secret::make('paypal_api_username')->initial('CBusch1980_api1.gmx.de'),
+		    GDO_Secret::make('paypal_api_password')->initial('ECL83PUVR4CF2LU3'),
+		    GDO_Secret::make('paypal_api_signature')->initial('An5ns1Kso7MWUdW4ErQKJJJ4qi4-AKKoQTrZVr51cIn6b.aMsI-4t2xg'),
 			GDO_Divider::make('paypal_proxy_settings'),
 			GDO_Checkbox::make('paypal_proxy')->initial('0'),
 			GDO_String::make('paypal_proxy_host')->ascii()->caseS()->initial('127.0.0.1'),
